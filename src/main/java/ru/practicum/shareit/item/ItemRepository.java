@@ -29,7 +29,7 @@ public class ItemRepository {
 
     public List<Item> getAllByOwnerId(Long ownerId) {
         return items.values().stream()
-                .filter(i -> i.getOwner().getId().equals(ownerId))
+                .filter(item -> item.getOwner().getId().equals(ownerId))
                 .toList();
     }
 
@@ -39,9 +39,9 @@ public class ItemRepository {
         }
         String lower = text.toLowerCase();
         return items.values().stream()
-                .filter(i -> Boolean.TRUE.equals(i.getAvailable()))
-                .filter(i -> i.getName().toLowerCase().contains(lower)
-                        || i.getDescription().toLowerCase().contains(lower))
+                .filter(item -> Boolean.TRUE.equals(item.getAvailable()))
+                .filter(item -> item.getName().toLowerCase().contains(lower)
+                        || item.getDescription().toLowerCase().contains(lower))
                 .toList();
     }
 }

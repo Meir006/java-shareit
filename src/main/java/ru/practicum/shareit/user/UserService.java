@@ -1,4 +1,3 @@
-
 package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class UserService {
 
     public UserDto addUser(UserDto dto) {
         log.info("Add user: {}", dto);
-        if (userRepository.isEmailTaken(dto.getEmail(), null)) {
+        if (userRepository.isEmailTaken(dto.getEmail())) {
             throw new ConflictException("Email уже используется");
         }
         User user = userRepository.add(UserMapper.toUser(dto));
@@ -36,7 +35,7 @@ public class UserService {
             user.setName(dto.getName());
         }
         if (dto.getEmail() != null) {
-            if (userRepository.isEmailTaken(dto.getEmail(), id)) {
+            if (userRepository.isEmailTaken(dto.getEmail())) {
                 throw new ConflictException("Email уже используется");
             }
             user.setEmail(dto.getEmail());
@@ -60,8 +59,6 @@ public class UserService {
 
     public List<UserDto> getAllUsers() {
         log.info("Get all users");
-        return userRepository.getAll().stream()
-                .map(UserMapper::toUserDto)
-                .toList();
+        return userRepository.getAll().stream().map(UserMapper::toUserDto).toList();
     }
 }

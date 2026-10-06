@@ -35,7 +35,7 @@ public class UserRepository {
         return users.values();
     }
 
-    public boolean isEmailTaken(String email, Long excludedUserId) {
-        return users.values().stream().anyMatch(u -> u.getEmail().equals(email) && !u.getId().equals(excludedUserId));
+    public boolean isEmailTaken(String email) {
+        return users.values().stream().anyMatch(u -> u.getEmail().equals(email));
     }
 }
