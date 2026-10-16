@@ -9,6 +9,7 @@ import ru.practicum.shareit.user.User;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Item {
     private Long id;
     private String name;
