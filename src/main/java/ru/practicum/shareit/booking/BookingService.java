@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
+import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.ItemRepository;
@@ -53,7 +54,7 @@ public class BookingService {
         log.info("Approve booking {} by user {}: {}", bookingId, userId, approved);
         Booking booking = getBookingOrThrow(bookingId);
         if (!booking.getItem().getOwner().getId().equals(userId)) {
-            throw new NotFoundException("Подтвердить бронирование может только владелец вещи");
+            throw new ForbiddenException("Подтвердить бронирование может только владелец вещи");
         }
         if (booking.getStatus() != Status.WAITING) {
             throw new ValidationException("Статус бронирования уже изменён");

@@ -125,7 +125,7 @@ class ShareItFlowTests {
         long b2 = id(send(post("/bookings"), booker, bookingJson(item, now.plusDays(3), now.plusDays(4)))
                 .andExpect(status().isOk()));
 
-        send(patch("/bookings/" + b1).param("approved", "true"), booker, null).andExpect(status().isNotFound());
+        send(patch("/bookings/" + b1).param("approved", "true"), booker, null).andExpect(status().isForbidden());
         send(patch("/bookings/" + b1).param("approved", "true"), owner, null)
                 .andExpect(status().isOk()).andExpect(jsonPath("$.status", is("APPROVED")));
         send(patch("/bookings/" + b1).param("approved", "false"), owner, null)
